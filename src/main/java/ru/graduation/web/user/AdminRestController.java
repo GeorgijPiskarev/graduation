@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.graduation.model.User;
 
 @RestController
-public class UserRestController extends AbstractUserController {
+public class AdminRestController extends AbstractUserController {
 
     @Override
     public User get(int id) {
