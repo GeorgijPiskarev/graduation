@@ -6,19 +6,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.graduation.model.User;
 import ru.graduation.repository.UserRepository;
 
+import java.util.List;
+
+import static ru.graduation.util.ValidationUtil.assureIdConsistent;
+import static ru.graduation.util.ValidationUtil.checkNew;
+
 public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private UserRepository repository;
 
+    public List<User> getAll() {
+        log.info("getAll");
+        return repository.getAll();
+    }
+
     public User get(int id) {
         log.info("get {}", id);
         return repository.get(id);
     }
 
-    public User save(User user) {
+    public User create(User user) {
         log.info("create {}", user);
+        checkNew(user);
         return repository.save(user);
+    }
+
+    public void delete(int id) {
+        log.info("delete {}", id);
+        repository.delete(id);
+    }
+
+    public void update(User user, int id) {
+        log.info("update {} with id={}", user, id);
+        assureIdConsistent(user, id);
+        repository.save(user);
+    }
+
+    public User getByMail(String email) {
+        log.info("getByEmail {}", email);
+        return repository.getByEmail(email);
     }
 }

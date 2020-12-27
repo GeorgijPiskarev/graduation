@@ -1,38 +1,37 @@
 package ru.graduation.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 
 @NamedQueries({
-        @NamedQuery(name = Restaurant.ALL_SORTED, query = "SELECT r FROM Restaurant r WHERE r.id=:id ORDER BY r.name"),
-        @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r WHERE r.id=:id"),
+        @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r WHERE r.id=?1"),
+        @NamedQuery(name = Restaurant.GET, query = "SELECT r FROM Restaurant r WHERE r.id=?1")
 })
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends AbstractNamedEntity {
-    public static final String ALL_SORTED = "Restaurant.getAll";
     public static final String DELETE = "Restaurant.delete";
+    public static final String GET = "Restaurant.get";
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurant")
-    @OrderBy("name")
+    @OrderBy("name ASC")
+    @JsonManagedReference
     private List<Dish> dishes;
-
-    @Column(name = "votes")
-    private int votes;
-
-    @Column(name = "name")
-    @NotBlank
-    private String name;
 
     public Restaurant() {
     }
 
     public Restaurant(Integer id, String name, List<Dish> dishes) {
-        this.id = id;
+        super(id, name);
         this.name = name;
         this.dishes = dishes;
+    }
+
+    public Restaurant(Restaurant restaurant) {
+        this(restaurant.getId(), restaurant.getName(), restaurant.getDishes());
     }
 
     public Integer getId() {
@@ -63,21 +62,12 @@ public class Restaurant extends AbstractNamedEntity {
         this.dishes = dishes;
     }
 
-    public int getVotes() {
-        return votes;
-    }
-
-    public void setVotes(int votes) {
-        this.votes = votes;
-    }
-
     @Override
     public String toString() {
         return "Restaurant{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", dishes=" + dishes +
-                ", votes=" + votes +
                 '}';
     }
 }

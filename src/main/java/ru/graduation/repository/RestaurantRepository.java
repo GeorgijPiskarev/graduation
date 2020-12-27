@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RestaurantRepository {
     // null if it is not an admin
-    Restaurant save(Restaurant restaurant, int userId);
+    Restaurant save(Restaurant restaurant);
 
     // false if it is not an admin
     boolean delete(int id);
@@ -15,4 +15,6 @@ public interface RestaurantRepository {
     Restaurant get(int id);
 
     List<Restaurant> getAll();
+
+
 }

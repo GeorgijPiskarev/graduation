@@ -1,4 +1,8 @@
 DELETE
+FROM user_roles;
+DELETE
+FROM VOTES;
+DELETE
 FROM dishes;
 DELETE
 FROM restaurants;
@@ -6,17 +10,21 @@ DELETE
 FROM users;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
-INSERT INTO restaurants (name, votes)
-VALUES ('Restaurant1', 0),
-       ('Restaurant2', 0);
+INSERT INTO users (name, email, password)
+VALUES ('User', 'user@yandex.ru', 'password'),
+       ('Admin', 'admin@gmail.com', 'admin');
 
-INSERT INTO users (name, email, password,role)
-VALUES ('User', 'user@yandex.ru', 'password','USER'),
-       ('Admin', 'admin@gmail.com', 'admin','ADMIN');
+INSERT INTO user_roles (role, user_id)
+VALUES ('USER', 100000),
+       ('ADMIN', 100001);
 
-INSERT INTO dishes (name, restaurant_id,price)
-VALUES ('Суп', 100000, 500),
-       ('Макароны', 100000, 1200),
-       ('Котлета',100000, 520),
-       ('Фрукты',100001, 100),
-       ('Овощи', 100001, 600);
+INSERT INTO restaurants (name)
+VALUES ('Restaurant1'),
+       ('Restaurant2');
+
+INSERT INTO dishes (name, restaurant_id, price)
+VALUES ('Soup', 100002, 500),
+       ('Pasta', 100002, 1200),
+       ('Meatballs', 100002, 520),
+       ('Fruits', 100003, 100),
+       ('Vegetables', 100003, 600);

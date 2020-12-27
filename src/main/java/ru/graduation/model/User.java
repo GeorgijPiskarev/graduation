@@ -10,9 +10,13 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Set;
 
+@NamedQueries({
+        @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=?1")
+})
 @Entity
 @Table(name = "users")
 public class User extends AbstractNamedEntity {
+    public static final String DELETE = "User.delete";
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -31,17 +35,13 @@ public class User extends AbstractNamedEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @Column(name = "voted", nullable = false, columnDefinition = "bool default false")
-    private boolean voted = false;
-
     public User() {
     }
 
-    public User(Integer id, String email, String password,  Collection<Role> roles, boolean voted) {
+    public User(Integer id, String email, String password, Collection<Role> roles) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.voted = voted;
         setRoles(roles);
     }
 
@@ -50,14 +50,6 @@ public class User extends AbstractNamedEntity {
         this.email = email;
         this.password = password;
         setRoles(roles);
-    }
-
-    public boolean isVoted() {
-        return voted;
-    }
-
-    public void setVoted(boolean voted) {
-        this.voted = voted;
     }
 
     public String getEmail() {
@@ -87,10 +79,11 @@ public class User extends AbstractNamedEntity {
     @Override
     public String toString() {
         return "User{" +
-                "email='" + email + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", roles=" + roles +
-                ", voted=" + voted +
                 '}';
     }
 }

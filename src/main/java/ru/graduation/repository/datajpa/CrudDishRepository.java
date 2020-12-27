@@ -4,15 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
-import ru.graduation.model.Restaurant;
+import ru.graduation.model.Dish;
 
-@Transactional(readOnly = true)
-public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Integer> {
+public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
+
     @Transactional
     @Modifying
-    @Query(name = Restaurant.DELETE)
-    int delete(int id);
-
-    @Query(name = Restaurant.GET)
-    Restaurant get(int id);
+    @Query(name = Dish.DELETE)
+    int delete(int id, int restaurantId);
 }

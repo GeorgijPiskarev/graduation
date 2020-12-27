@@ -8,15 +8,32 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.graduation.model.Restaurant;
 
 import java.net.URI;
+import java.util.List;
+
+import static ru.graduation.util.ValidationUtil.checkIdConsistent;
+import static ru.graduation.util.ValidationUtil.checkNew;
 
 @RestController
-@RequestMapping(value = RestaurantEditController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class RestaurantEditController extends AbstractRestaurantController {
+@RequestMapping(value = RestaurantEditRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class RestaurantEditRestController extends AbstractRestaurantController {
 
     static final String REST_URL = "rest/admin/restaurants";
 
+    @Override
+    @GetMapping("/{id}")
+    public Restaurant get(@PathVariable int id) {
+        return super.get(id);
+    }
+
+    @Override
+    @GetMapping
+    public List<Restaurant> getAll() {
+        return super.getAll();
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> createWithLocation(@RequestBody Restaurant restaurant) {
+        checkNew(restaurant);
         Restaurant created = super.create(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
@@ -27,8 +44,9 @@ public class RestaurantEditController extends AbstractRestaurantController {
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Restaurant meal, @PathVariable int id) {
-        super.update(meal, id);
+    public void update(@RequestBody Restaurant restaurant, @PathVariable int id) {
+        checkIdConsistent(restaurant, id);
+        super.update(restaurant, id);
     }
 
     @Override
