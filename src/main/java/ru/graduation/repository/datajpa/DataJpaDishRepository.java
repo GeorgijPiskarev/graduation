@@ -27,7 +27,7 @@ public class DataJpaDishRepository implements DishRepository {
     @Override
     @Transactional
     public Dish save(Dish dish, int restaurantId) {
-        Assert.notNull(dish, "dish can't be null");
+        Assert.notNull(dish, "dish must not be null");
         if (!dish.isNew() && get(dish.getId(), restaurantId) == null) {
             return null;
         }
@@ -35,10 +35,9 @@ public class DataJpaDishRepository implements DishRepository {
         return crudDishRepository.save(dish);
     }
 
-    @Override
     @Transactional
     public void update(Dish dish, int restaurantId) {
-        Assert.notNull(dish, "dish can't be null");
+        Assert.notNull(dish, "dish must not be null");
         save(dish, restaurantId);
     }
 

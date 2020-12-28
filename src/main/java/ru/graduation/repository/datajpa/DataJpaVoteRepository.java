@@ -54,7 +54,7 @@ public class DataJpaVoteRepository implements VoteRepository {
 
     @Override
     public Vote getByUser(int userId, LocalDate date) {
-        Assert.notNull(date, "date can't be null");
+        Assert.notNull(date, "date must not be null");
         return crudVoteRepository.getByUserIdAndDate(userId, date);
     }
 
@@ -65,7 +65,7 @@ public class DataJpaVoteRepository implements VoteRepository {
 
     @Override
     public List<Vote> getByRestaurant(int restaurantId, LocalDate date) {
-        Assert.notNull(date, "date can't be null");
+        Assert.notNull(date, "date must not be null");
         return crudVoteRepository.getByRestaurantIdAndDate(restaurantId, date);
     }
 }

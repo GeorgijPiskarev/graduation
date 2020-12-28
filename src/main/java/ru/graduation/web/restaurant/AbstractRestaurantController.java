@@ -29,20 +29,20 @@ public class AbstractRestaurantController {
     public Restaurant create(Restaurant restaurant) {
         int userId = SecurityUtil.authUserId();
         checkNew(restaurant);
-        log.info("create {} by admin{}", restaurant, userId);
+        log.info("create {} by user{}", restaurant, userId);
         return restaurantRepository.save(restaurant);
     }
 
     public void update(Restaurant restaurant, int id) {
         int userId = SecurityUtil.authUserId();
         checkIdConsistent(restaurant, id);
-        log.info("update {} by admin {}", restaurant, userId);
+        log.info("update {} by user {}", restaurant, userId);
         restaurantRepository.save(restaurant);
     }
 
     public void delete(int id) {
         int userId = SecurityUtil.authUserId();
-        log.info("delete restaurant {} by admin {}", id, userId);
+        log.info("delete restaurant {} by user {}", id, userId);
         restaurantRepository.delete(id);
     }
 

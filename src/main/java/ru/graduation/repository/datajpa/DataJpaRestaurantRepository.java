@@ -26,7 +26,7 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
     @Override
     @Transactional
     public Restaurant save(Restaurant restaurant) {
-        Assert.notNull(restaurant, "restaurant can't be null");
+        Assert.notNull(restaurant, "restaurant must not be null");
         return crudRestaurantRepository.save(restaurant);
     }
 
