@@ -36,7 +36,6 @@ public class Vote extends AbstractBaseEntity {
     private Restaurant restaurant;
 
     public Vote() {
-
     }
 
     public Vote(Vote vote) {

@@ -26,7 +26,7 @@ public class RestaurantRestController extends AbstractRestaurantController {
     }
 
     @Override
-    @PatchMapping("/{id}")
+    @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void vote(@PathVariable int id) {
         super.vote(id);

@@ -6,15 +6,22 @@ import org.springframework.util.Assert;
 import ru.graduation.model.Dish;
 import ru.graduation.repository.DishRepository;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Repository
 public class DataJpaDishRepository implements DishRepository {
-
     private final CrudRestaurantRepository crudRestaurantRepository;
     private final CrudDishRepository crudDishRepository;
 
     public DataJpaDishRepository(CrudRestaurantRepository crudRestaurantRepository, CrudDishRepository crudDishRepository) {
         this.crudRestaurantRepository = crudRestaurantRepository;
         this.crudDishRepository = crudDishRepository;
+    }
+
+    @Override
+    public List<Dish> getAll(int restaurantId, LocalDate date) {
+        return crudDishRepository.getAll(restaurantId, date);
     }
 
     @Override
@@ -28,17 +35,8 @@ public class DataJpaDishRepository implements DishRepository {
     @Transactional
     public Dish save(Dish dish, int restaurantId) {
         Assert.notNull(dish, "dish must not be null");
-        if (!dish.isNew() && get(dish.getId(), restaurantId) == null) {
-            return null;
-        }
         dish.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
         return crudDishRepository.save(dish);
-    }
-
-    @Transactional
-    public void update(Dish dish, int restaurantId) {
-        Assert.notNull(dish, "dish must not be null");
-        save(dish, restaurantId);
     }
 
     @Override

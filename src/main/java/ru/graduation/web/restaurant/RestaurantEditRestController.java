@@ -11,7 +11,6 @@ import java.net.URI;
 import java.util.List;
 
 import static ru.graduation.util.ValidationUtil.checkIdConsistent;
-import static ru.graduation.util.ValidationUtil.checkNew;
 
 @RestController
 @RequestMapping(value = RestaurantEditRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,7 +32,6 @@ public class RestaurantEditRestController extends AbstractRestaurantController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> createWithLocation(@RequestBody Restaurant restaurant) {
-        checkNew(restaurant);
         Restaurant created = super.create(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")

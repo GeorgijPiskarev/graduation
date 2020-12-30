@@ -42,7 +42,7 @@ public class DataJpaVoteRepository implements VoteRepository {
     @Transactional
     public void vote(int userId, int restaurantId) {
         Vote vote = getByUser(userId, LocalDate.now());
-        if (vote.isNew()) {
+        if (vote == null) {
             save(userId, restaurantId);
         } else {
             if (LocalTime.now().isAfter(END) && LocalTime.now().isBefore(START)) {

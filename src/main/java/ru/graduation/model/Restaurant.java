@@ -16,7 +16,7 @@ public class Restaurant extends AbstractNamedEntity {
     public static final String DELETE = "Restaurant.delete";
     public static final String GET = "Restaurant.get";
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurant")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("name ASC")
     @JsonManagedReference
     private List<Dish> dishes;

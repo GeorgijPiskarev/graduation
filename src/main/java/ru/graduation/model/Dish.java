@@ -6,13 +6,16 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @NamedQueries({
-        @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish d WHERE d.id=?1 AND d.restaurant.id=?2")
+        @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish d WHERE d.id=?1 AND d.restaurant.id=?2"),
+        @NamedQuery(name = Dish.GET_ALL, query = "SELECT d FROM Dish d WHERE d.restaurant.id=?1 AND d.date=?2")
 })
 @Entity
 @Table(name = "dishes")
 public class Dish extends AbstractNamedEntity {
+    public static final String GET_ALL = "Dish.getAll";
     public static final String DELETE = "Dish.delete";
 
     @Column(name = "price")
@@ -25,11 +28,22 @@ public class Dish extends AbstractNamedEntity {
     @NotNull
     private Restaurant restaurant;
 
+    @Column(name = "date", nullable = false, columnDefinition = "date default today()")
+    @NotNull
+    private LocalDate date = LocalDate.now();
+
     public Dish() {
     }
 
     public Dish(Dish dish) {
-        this(dish.getId(), dish.getName(), dish.getPrice(), dish.getRestaurant());
+        this(dish.getId(), dish.getName(), dish.getPrice(), dish.getRestaurant(), dish.getDate());
+    }
+
+    public Dish(Integer id, String name, int price, Restaurant restaurant, LocalDate date) {
+        super(id, name);
+        this.price = price;
+        this.restaurant = restaurant;
+        this.date = date;
     }
 
     public Dish(Integer id, String name, int price, Restaurant restaurant) {
@@ -62,11 +76,13 @@ public class Dish extends AbstractNamedEntity {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "Dish{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                '}';
+    public LocalDate getDate() {
+        return date;
     }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+
 }
