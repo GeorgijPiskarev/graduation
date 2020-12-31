@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.graduation.model.Restaurant;
 import ru.graduation.repository.RestaurantRepository;
-import ru.graduation.repository.UserRepository;
 import ru.graduation.repository.VoteRepository;
 import ru.graduation.web.SecurityUtil;
 
@@ -22,9 +21,6 @@ public class AbstractRestaurantController {
 
     @Autowired
     private VoteRepository voteRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     public Restaurant create(Restaurant restaurant) {
         int userId = SecurityUtil.authUserId();
@@ -57,7 +53,6 @@ public class AbstractRestaurantController {
         log.info("getAll for user {}", userId);
         return restaurantRepository.getAll();
     }
-
 
     public void vote(int restaurantId) {
         int userId = SecurityUtil.authUserId();

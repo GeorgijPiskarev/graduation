@@ -57,6 +57,6 @@
           p:entityManagerFactory-ref="entityManagerFactory"/>
 
 
-    <context:component-scan base-package="ru.graduation.**.repository.datajpa"/>
-    <jpa:repositories base-package="ru.graduation.**.repository.datajpa"/>
+    <context:component-scan base-package="ru.graduation.**.repository"/>
+    <jpa:repositories base-package="ru.graduation.**.repository"/>
 </beans>

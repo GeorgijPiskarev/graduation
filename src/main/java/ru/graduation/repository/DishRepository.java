@@ -1,17 +1,41 @@
 package ru.graduation.repository;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import ru.graduation.model.Dish;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface DishRepository {
+@Repository
+public class DishRepository {
+    private final CrudRestaurantRepository crudRestaurantRepository;
+    private final CrudDishRepository crudDishRepository;
 
-    List<Dish> getAll(int restaurantId, LocalDate date);
+    public DishRepository(CrudRestaurantRepository crudRestaurantRepository, CrudDishRepository crudDishRepository) {
+        this.crudRestaurantRepository = crudRestaurantRepository;
+        this.crudDishRepository = crudDishRepository;
+    }
 
-    Dish get(int id, int restaurantId);
+    public List<Dish> getAll(int restaurantId, LocalDate date) {
+        return crudDishRepository.getAll(restaurantId, date);
+    }
 
-    Dish save(Dish dish, int restaurantId);
+    public Dish get(int id, int restaurantId) {
+        return crudDishRepository.findById(id)
+                .filter(dish -> dish.getRestaurant().getId() == restaurantId)
+                .orElse(null);
+    }
 
-    boolean delete(int id, int restaurantId);
+    @Transactional
+    public Dish save(Dish dish, int restaurantId) {
+        Assert.notNull(dish, "dish must not be null");
+        dish.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
+        return crudDishRepository.save(dish);
+    }
+
+    public boolean delete(int id, int restaurantId) {
+        return crudDishRepository.delete(id, restaurantId) != 0;
+    }
 }

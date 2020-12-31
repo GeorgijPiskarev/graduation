@@ -8,6 +8,21 @@ public class RootController {
 
     @GetMapping("/")
     public String root() {
-        return "index";
+        return "redirect:restaurants";
+    }
+
+    @GetMapping("/users")
+    public String getUsers() {
+        return "users";
+    }
+
+    @GetMapping(value = "/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/restaurants")
+    public String getMeals() {
+        return "restaurants";
     }
 }

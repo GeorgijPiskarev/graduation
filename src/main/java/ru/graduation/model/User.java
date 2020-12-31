@@ -1,5 +1,6 @@
 package ru.graduation.model;
 
+import org.hibernate.annotations.BatchSize;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -33,16 +34,18 @@ public class User extends AbstractNamedEntity {
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
+    @BatchSize(size = 200)
     private Set<Role> roles;
 
     public User() {
     }
 
-    public User(Integer id, String email, String password, Collection<Role> roles) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        setRoles(roles);
+    public User(User u) {
+        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.getRoles());
+    }
+
+    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
+        this(id, name, email, password, EnumSet.of(role, roles));
     }
 
     public User(Integer id, String name, String email, String password, Collection<Role> roles) {

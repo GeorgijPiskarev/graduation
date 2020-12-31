@@ -1,20 +1,40 @@
 package ru.graduation.repository;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
 import ru.graduation.model.Restaurant;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
-public interface RestaurantRepository {
-    // null if it is not an admin
-    Restaurant save(Restaurant restaurant);
+import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 
-    // false if it is not an admin
-    boolean delete(int id);
+@Repository
+public class RestaurantRepository {
+    private static final Sort SORT_NAME = Sort.by(Sort.Direction.ASC, "name");
 
-    // null if the restaurant does not exist
-    Restaurant get(int id);
+    private final CrudRestaurantRepository crudRestaurantRepository;
 
-    List<Restaurant> getAll();
+    public RestaurantRepository(CrudRestaurantRepository crudRestaurantRepository) {
+        this.crudRestaurantRepository = crudRestaurantRepository;
+    }
 
+    @Transactional
+    public Restaurant save(Restaurant restaurant) {
+        Assert.notNull(restaurant, "restaurant must not be null");
+        return crudRestaurantRepository.save(restaurant);
+    }
 
+    public boolean delete(int id) {
+        return checkNotFoundWithId(crudRestaurantRepository.delete(id), id) != 0;
+    }
+
+    public Restaurant get(int id) {
+        return checkNotFoundWithId(crudRestaurantRepository.get(id), id);
+    }
+
+    public List<Restaurant> getAll() {
+        return crudRestaurantRepository.findAll(SORT_NAME);
+    }
 }
