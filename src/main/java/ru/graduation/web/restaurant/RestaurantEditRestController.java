@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.graduation.model.Restaurant;
+import ru.graduation.model.Vote;
 
 import java.net.URI;
 import java.util.List;
@@ -16,12 +17,18 @@ import static ru.graduation.util.ValidationUtil.checkIdConsistent;
 @RequestMapping(value = RestaurantEditRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantEditRestController extends AbstractRestaurantController {
 
-    static final String REST_URL = "rest/admin/restaurants";
+    static final String REST_URL = "/rest/admin/restaurants";
 
     @Override
     @GetMapping("/{id}")
     public Restaurant get(@PathVariable int id) {
         return super.get(id);
+    }
+
+    @Override
+    @GetMapping("/{restaurantId}/votes")
+    public List<Vote> getTodayVotes(@PathVariable int restaurantId) {
+        return super.getTodayVotes(restaurantId);
     }
 
     @Override

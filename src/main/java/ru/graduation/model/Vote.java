@@ -8,14 +8,12 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @NamedQueries({
-        @NamedQuery(name = Vote.GET_BY_USER, query = "SELECT v FROM Vote v WHERE v.user.id = ?1"),
         @NamedQuery(name = Vote.GET_BY_RESTAURANT_AND_DATE, query = "SELECT v FROM Vote v WHERE v.restaurant.id = ?1 AND v.date = ?2"),
         @NamedQuery(name = Vote.GET_BY_USER_AND_DATE, query = "SELECT v FROM Vote v WHERE v.user.id = ?1 AND v.date = ?2")
 })
 @Entity
 @Table(name = "votes")
 public class Vote extends AbstractBaseEntity {
-    public static final String GET_BY_USER = "Vote.getByUserId";
     public static final String GET_BY_RESTAURANT_AND_DATE = "Vote.getByRestaurantIdAndDate";
     public static final String GET_BY_USER_AND_DATE = "Vote.getByUserIdAndDate";
 
@@ -71,5 +69,15 @@ public class Vote extends AbstractBaseEntity {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "id=" + id +
+                ", date=" + date +
+                ", user=" + user +
+                ", restaurant=" + restaurant +
+                '}';
     }
 }

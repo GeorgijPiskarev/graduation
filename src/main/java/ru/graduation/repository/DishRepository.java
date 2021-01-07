@@ -8,6 +8,8 @@ import ru.graduation.model.Dish;
 import java.time.LocalDate;
 import java.util.List;
 
+import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
+
 @Repository
 public class DishRepository {
     private final CrudRestaurantRepository crudRestaurantRepository;
@@ -23,9 +25,7 @@ public class DishRepository {
     }
 
     public Dish get(int id, int restaurantId) {
-        return crudDishRepository.findById(id)
-                .filter(dish -> dish.getRestaurant().getId() == restaurantId)
-                .orElse(null);
+        return checkNotFoundWithId(crudDishRepository.get(id, restaurantId), id);
     }
 
     @Transactional
@@ -36,6 +36,6 @@ public class DishRepository {
     }
 
     public boolean delete(int id, int restaurantId) {
-        return crudDishRepository.delete(id, restaurantId) != 0;
+        return checkNotFoundWithId(crudDishRepository.delete(id, restaurantId), id) != 0;
     }
 }

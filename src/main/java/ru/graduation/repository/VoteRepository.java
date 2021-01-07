@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
+
 @Repository
 public class VoteRepository {
     public static final LocalTime END = LocalTime.of(23, 0);
@@ -55,12 +57,12 @@ public class VoteRepository {
         return crudVoteRepository.getByUserIdAndDate(userId, date);
     }
 
-    public List<Vote> getByUser(int userId) {
-        return crudVoteRepository.getByUserId(userId);
-    }
-
     public List<Vote> getByRestaurant(int restaurantId, LocalDate date) {
         Assert.notNull(date, "date must not be null");
         return crudVoteRepository.getByRestaurantIdAndDate(restaurantId, date);
+    }
+
+    public Vote get(int id) {
+        return checkNotFoundWithId(crudVoteRepository.findById(id).orElse(null), id);
     }
 }

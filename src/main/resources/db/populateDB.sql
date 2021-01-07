@@ -19,8 +19,8 @@ VALUES ('USER', 100000),
        ('ADMIN', 100001);
 
 INSERT INTO restaurants (name)
-VALUES ('Restaurant1'),
-       ('Restaurant2');
+VALUES ('Scarlett Green'),
+       ('Firebrand Pizza');
 
 INSERT INTO dishes (name, restaurant_id, price)
 VALUES ('Soup', 100002, 500),

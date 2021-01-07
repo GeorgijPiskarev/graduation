@@ -10,13 +10,15 @@ import java.time.LocalDate;
 
 @NamedQueries({
         @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish d WHERE d.id=?1 AND d.restaurant.id=?2"),
-        @NamedQuery(name = Dish.GET_ALL, query = "SELECT d FROM Dish d WHERE d.restaurant.id=?1 AND d.date=?2")
+        @NamedQuery(name = Dish.GET_ALL, query = "SELECT d FROM Dish d WHERE d.restaurant.id=?1 AND d.date=?2"),
+        @NamedQuery(name = Dish.GET, query = "SELECT d FROM Dish d WHERE d.id=?1 AND d.restaurant.id=?2")
 })
 @Entity
 @Table(name = "dishes")
 public class Dish extends AbstractNamedEntity {
     public static final String GET_ALL = "Dish.getAll";
     public static final String DELETE = "Dish.delete";
+    public static final String GET = "Dish.get";
 
     @Column(name = "price")
     private int price;
@@ -33,17 +35,6 @@ public class Dish extends AbstractNamedEntity {
     private LocalDate date = LocalDate.now();
 
     public Dish() {
-    }
-
-    public Dish(Dish dish) {
-        this(dish.getId(), dish.getName(), dish.getPrice(), dish.getRestaurant(), dish.getDate());
-    }
-
-    public Dish(Integer id, String name, int price, Restaurant restaurant, LocalDate date) {
-        super(id, name);
-        this.price = price;
-        this.restaurant = restaurant;
-        this.date = date;
     }
 
     public Dish(Integer id, String name, int price, Restaurant restaurant) {
@@ -84,5 +75,14 @@ public class Dish extends AbstractNamedEntity {
         this.date = date;
     }
 
-
+    @Override
+    public String toString() {
+        return "Dish{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", restaurant=" + restaurant +
+                ", date=" + date +
+                '}';
+    }
 }

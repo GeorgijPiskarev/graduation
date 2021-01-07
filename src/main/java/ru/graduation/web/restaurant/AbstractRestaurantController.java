@@ -4,10 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.graduation.model.Restaurant;
+import ru.graduation.model.Vote;
 import ru.graduation.repository.RestaurantRepository;
 import ru.graduation.repository.VoteRepository;
 import ru.graduation.web.SecurityUtil;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static ru.graduation.util.ValidationUtil.checkIdConsistent;
@@ -58,5 +60,11 @@ public class AbstractRestaurantController {
         int userId = SecurityUtil.authUserId();
         log.info("vote for restaurant {} by user {}", restaurantId, userId);
         voteRepository.vote(userId, restaurantId);
+    }
+
+    public List<Vote> getTodayVotes(int restaurantId) {
+        int userId = SecurityUtil.authUserId();
+        log.info("get today's votes for restaurant {} by user {}", restaurantId, userId);
+        return voteRepository.getByRestaurant(restaurantId, LocalDate.now());
     }
 }

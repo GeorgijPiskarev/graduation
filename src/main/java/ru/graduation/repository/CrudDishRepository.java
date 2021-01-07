@@ -19,4 +19,7 @@ public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
 
     @Query(name = Dish.GET_ALL)
     List<Dish> getAll(int restaurantId, LocalDate date);
+
+    @Query(name = Dish.GET)
+    Dish get(int id, int restaurantId);
 }

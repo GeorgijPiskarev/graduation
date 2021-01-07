@@ -36,8 +36,6 @@
         <hibernate-validator.version>6.1.6.Final</hibernate-validator.version>
         <javax-el.version>3.0.1-b12</javax-el.version>
 
-        <!--Cache-->
-        <ehcache.version>3.9.0</ehcache.version>
     </properties>
 
     <build>
@@ -135,19 +133,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Cache -->
-        <dependency>
-            <groupId>javax.cache</groupId>
-            <artifactId>cache-api</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-            <scope>runtime</scope>
-            <version>${ehcache.version}</version>
-        </dependency>
-
         <!--https://medium.com/criciumadev/its-time-migrating-to-java-11-5eb3868354f9-->
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
@@ -209,6 +194,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <version>${spring.security.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
