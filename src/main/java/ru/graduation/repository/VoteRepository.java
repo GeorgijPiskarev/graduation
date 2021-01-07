@@ -13,7 +13,7 @@ import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Repository
 public class VoteRepository {
-    public static final LocalTime END = LocalTime.of(23, 0);
+    public static final LocalTime END = LocalTime.of(11, 0);
     public static final LocalTime START = LocalTime.of(0, 0);
 
     private final CrudRestaurantRepository crudRestaurantRepository;
