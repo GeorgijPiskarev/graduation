@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.graduation.RestaurantTestData;
 import ru.graduation.UserTestData;
 import ru.graduation.model.Restaurant;
 import ru.graduation.repository.RestaurantRepository;
@@ -57,7 +56,7 @@ public class RestaurantEditRestControllerTest extends AbstractControllerTest {
 
     @Test
     void update() throws Exception {
-        Restaurant updated = RestaurantTestData.getUpdated();
+        Restaurant updated = getUpdated();
         perform(MockMvcRequestBuilders.put(REST_URL + RESTAURANT1_ID)
                 .with(userHttpBasic(UserTestData.admin))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -69,7 +68,7 @@ public class RestaurantEditRestControllerTest extends AbstractControllerTest {
 
     @Test
     void createWithLocation() throws Exception {
-        Restaurant newRestaurant = RestaurantTestData.getNew();
+        Restaurant newRestaurant = getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .with(userHttpBasic(UserTestData.admin))
                 .contentType(MediaType.APPLICATION_JSON)

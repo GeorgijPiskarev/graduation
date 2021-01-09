@@ -9,7 +9,6 @@ import ru.graduation.model.Role;
 import ru.graduation.model.User;
 import ru.graduation.web.SecurityUtil;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.Collections;
 

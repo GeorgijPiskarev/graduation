@@ -14,7 +14,7 @@ public class JsonUtilTest {
         String json = JsonUtil.writeValue(dish1);
         System.out.println(json);
         Dish dish = JsonUtil.readValue(json, Dish.class);
-        DISH_MATCHER.assertMatch(dish, DishTestData.dish1);
+        DISH_MATCHER.assertMatch(dish, dish1);
     }
 
     @Test

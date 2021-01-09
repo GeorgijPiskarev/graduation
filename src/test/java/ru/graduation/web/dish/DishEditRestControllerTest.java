@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.graduation.DishTestData;
 import ru.graduation.UserTestData;
 import ru.graduation.model.Dish;
 import ru.graduation.repository.DishRepository;
@@ -58,7 +57,7 @@ public class DishEditRestControllerTest extends AbstractControllerTest {
 
     @Test
     void update() throws Exception {
-        Dish updated = DishTestData.getUpdated();
+        Dish updated = getUpdated();
         perform(MockMvcRequestBuilders.put(REST_URL + DISH1_ID)
                 .with(userHttpBasic(UserTestData.admin))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -70,7 +69,7 @@ public class DishEditRestControllerTest extends AbstractControllerTest {
 
     @Test
     void createWithLocation() throws Exception {
-        Dish newDish = DishTestData.getNew();
+        Dish newDish = getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .with(userHttpBasic(UserTestData.admin))
                 .contentType(MediaType.APPLICATION_JSON)
