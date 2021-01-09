@@ -1,6 +1,8 @@
 REST web service for voting the best restaurant
 ==============================
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7d800090508e4ce88d7933118e4eacf9)](https://app.codacy.com/gh/GeorgijPiskarev/graduation?utm_source=github.com&utm_medium=referral&utm_content=GeorgijPiskarev/graduation&utm_campaign=Badge_Grade)
+
 The task is:
 ------------------------------
 
