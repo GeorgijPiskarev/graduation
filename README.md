@@ -164,11 +164,10 @@ For all requests authorization is required. Basic Authorization (email and passw
   }'`
   
 
-* Update dish `curl -s -X PUT 'http://localhost:8080/graduation/rest/admin/restaurants/100002/dishes/100004' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu' --data-raw '{
+* Update dish `curl -s -X PUT 'http://localhost:8080/graduation/rest/admin/restaurants/100002/dishes/100004' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu' -H 'Content-Type: application/json' --data-raw '{
   "id": 100004,
   "name": "Soup",
-  "price": 502,
-  "date": "2020-12-30"
+  "price": 502
   }'`
   
 

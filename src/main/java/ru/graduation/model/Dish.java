@@ -1,6 +1,7 @@
 package ru.graduation.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -24,6 +25,7 @@ public class Dish extends AbstractNamedEntity {
 
     @Column(name = "day", nullable = false, columnDefinition = "date default today()")
     @NotNull
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate day = LocalDate.now();
 
     public Dish() {
