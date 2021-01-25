@@ -8,11 +8,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.graduation.UserTestData;
 import ru.graduation.model.Restaurant;
 import ru.graduation.repository.RestaurantRepository;
-import ru.graduation.util.exception.NotFoundException;
 import ru.graduation.web.AbstractControllerTest;
 import ru.graduation.web.json.JsonUtil;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -51,7 +49,6 @@ public class RestaurantEditRestControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.delete(REST_URL + RESTAURANT1_ID)
                 .with(userHttpBasic(UserTestData.admin)))
                 .andExpect(status().isNoContent());
-        assertThrows(NotFoundException.class, () -> restaurantRepository.get(RESTAURANT1_ID));
     }
 
     @Test

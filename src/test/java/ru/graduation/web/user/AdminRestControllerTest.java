@@ -8,11 +8,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.graduation.UserTestData;
 import ru.graduation.model.User;
 import ru.graduation.repository.UserRepository;
-import ru.graduation.util.exception.NotFoundException;
 import ru.graduation.web.AbstractControllerTest;
 import ru.graduation.web.json.JsonUtil;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -52,7 +50,6 @@ public class AdminRestControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(admin)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-        assertThrows(NotFoundException.class, () -> userRepository.get(USER_ID));
     }
 
     @Test
