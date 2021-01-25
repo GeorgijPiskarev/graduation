@@ -2,13 +2,10 @@ package ru.graduation.repository;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.Assert;
 import ru.graduation.model.Restaurant;
 
 import javax.transaction.Transactional;
 import java.util.List;
-
-import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Repository
 public class RestaurantRepository {
@@ -22,16 +19,15 @@ public class RestaurantRepository {
 
     @Transactional
     public Restaurant save(Restaurant restaurant) {
-        Assert.notNull(restaurant, "restaurant must not be null");
         return crudRestaurantRepository.save(restaurant);
     }
 
     public boolean delete(int id) {
-        return checkNotFoundWithId(crudRestaurantRepository.delete(id), id) != 0;
+        return crudRestaurantRepository.delete(id) != 0;
     }
 
     public Restaurant get(int id) {
-        return checkNotFoundWithId(crudRestaurantRepository.get(id), id);
+        return crudRestaurantRepository.get(id);
     }
 
     public List<Restaurant> getAll() {

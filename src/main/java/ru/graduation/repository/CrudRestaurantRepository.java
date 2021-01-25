@@ -10,9 +10,9 @@ import ru.graduation.model.Restaurant;
 public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Integer> {
     @Transactional
     @Modifying
-    @Query(name = Restaurant.DELETE)
+    @Query("DELETE FROM Restaurant r WHERE r.id=?1")
     int delete(int id);
 
-    @Query(name = Restaurant.GET)
+    @Query("SELECT r FROM Restaurant r WHERE r.id=?1")
     Restaurant get(int id);
 }

@@ -2,13 +2,10 @@ package ru.graduation.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 import ru.graduation.model.Dish;
 
 import java.time.LocalDate;
 import java.util.List;
-
-import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Repository
 public class DishRepository {
@@ -25,17 +22,16 @@ public class DishRepository {
     }
 
     public Dish get(int id, int restaurantId) {
-        return checkNotFoundWithId(crudDishRepository.get(id, restaurantId), id);
+        return crudDishRepository.get(id, restaurantId);
     }
 
     @Transactional
     public Dish save(Dish dish, int restaurantId) {
-        Assert.notNull(dish, "dish must not be null");
         dish.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
         return crudDishRepository.save(dish);
     }
 
     public boolean delete(int id, int restaurantId) {
-        return checkNotFoundWithId(crudDishRepository.delete(id, restaurantId), id) != 0;
+        return crudDishRepository.delete(id, restaurantId) != 0;
     }
 }

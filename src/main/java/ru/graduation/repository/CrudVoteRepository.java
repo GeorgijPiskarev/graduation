@@ -11,9 +11,9 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
 
-    @Query(name = Vote.GET_BY_RESTAURANT_AND_DATE)
+    @Query("SELECT v FROM Vote v WHERE v.restaurant.id = ?1 AND v.day = ?2")
     List<Vote> getByRestaurantIdAndDate(int restaurantId, LocalDate date);
 
-    @Query(name = Vote.GET_BY_USER_AND_DATE)
+    @Query("SELECT v FROM Vote v WHERE v.user.id = ?1 AND v.day = ?2")
     Vote getByUserIdAndDate(int userId, LocalDate date);
 }

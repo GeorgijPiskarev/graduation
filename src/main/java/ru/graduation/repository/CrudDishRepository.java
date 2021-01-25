@@ -14,12 +14,12 @@ public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
 
     @Transactional
     @Modifying
-    @Query(name = Dish.DELETE)
+    @Query("DELETE FROM Dish d WHERE d.id=?1 AND d.restaurant.id=?2")
     int delete(int id, int restaurantId);
 
-    @Query(name = Dish.GET_ALL)
+    @Query("SELECT d FROM Dish d WHERE d.restaurant.id=?1 AND d.day=?2")
     List<Dish> getAll(int restaurantId, LocalDate date);
 
-    @Query(name = Dish.GET)
+    @Query("SELECT d FROM Dish d WHERE d.id=?1 AND d.restaurant.id=?2")
     Dish get(int id, int restaurantId);
 }

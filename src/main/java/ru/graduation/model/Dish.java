@@ -8,17 +8,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@NamedQueries({
-        @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish d WHERE d.id=?1 AND d.restaurant.id=?2"),
-        @NamedQuery(name = Dish.GET_ALL, query = "SELECT d FROM Dish d WHERE d.restaurant.id=?1 AND d.date=?2"),
-        @NamedQuery(name = Dish.GET, query = "SELECT d FROM Dish d WHERE d.id=?1 AND d.restaurant.id=?2")
-})
 @Entity
 @Table(name = "dishes")
 public class Dish extends AbstractNamedEntity {
-    public static final String GET_ALL = "Dish.getAll";
-    public static final String DELETE = "Dish.delete";
-    public static final String GET = "Dish.get";
 
     @Column(name = "price")
     private int price;
@@ -30,9 +22,9 @@ public class Dish extends AbstractNamedEntity {
     @NotNull
     private Restaurant restaurant;
 
-    @Column(name = "date", nullable = false, columnDefinition = "date default today()")
+    @Column(name = "day", nullable = false, columnDefinition = "date default today()")
     @NotNull
-    private LocalDate date = LocalDate.now();
+    private LocalDate day = LocalDate.now();
 
     public Dish() {
     }
@@ -67,12 +59,12 @@ public class Dish extends AbstractNamedEntity {
         this.price = price;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getDay() {
+        return day;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDay(LocalDate day) {
+        this.day = day;
     }
 
     @Override
@@ -82,7 +74,7 @@ public class Dish extends AbstractNamedEntity {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", restaurant=" + restaurant +
-                ", date=" + date +
+                ", date=" + day +
                 '}';
     }
 }

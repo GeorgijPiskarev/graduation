@@ -6,15 +6,9 @@ import javax.persistence.*;
 import java.util.List;
 
 
-@NamedQueries({
-        @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r WHERE r.id=?1"),
-        @NamedQuery(name = Restaurant.GET, query = "SELECT r FROM Restaurant r WHERE r.id=?1")
-})
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends AbstractNamedEntity {
-    public static final String DELETE = "Restaurant.delete";
-    public static final String GET = "Restaurant.get";
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("name ASC")

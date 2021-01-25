@@ -7,19 +7,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@NamedQueries({
-        @NamedQuery(name = Vote.GET_BY_RESTAURANT_AND_DATE, query = "SELECT v FROM Vote v WHERE v.restaurant.id = ?1 AND v.date = ?2"),
-        @NamedQuery(name = Vote.GET_BY_USER_AND_DATE, query = "SELECT v FROM Vote v WHERE v.user.id = ?1 AND v.date = ?2")
-})
 @Entity
 @Table(name = "votes")
 public class Vote extends AbstractBaseEntity {
-    public static final String GET_BY_RESTAURANT_AND_DATE = "Vote.getByRestaurantIdAndDate";
-    public static final String GET_BY_USER_AND_DATE = "Vote.getByUserIdAndDate";
 
-    @Column(name = "date", nullable = false, columnDefinition = "date default today()")
+    @Column(name = "day", nullable = false, columnDefinition = "date default today()")
     @NotNull
-    private LocalDate date = LocalDate.now();
+    private LocalDate day = LocalDate.now();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
@@ -37,22 +31,22 @@ public class Vote extends AbstractBaseEntity {
     }
 
     public Vote(Vote vote) {
-        this(vote.getId(), vote.getUser(), vote.getRestaurant(), vote.getDate());
+        this(vote.getId(), vote.getUser(), vote.getRestaurant(), vote.getDay());
     }
 
     public Vote(Integer id, User user, Restaurant restaurant, LocalDate date) {
         super(id);
         this.user = user;
         this.restaurant = restaurant;
-        this.date = date;
+        this.day = date;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getDay() {
+        return day;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDay(LocalDate date) {
+        this.day = date;
     }
 
     public User getUser() {
@@ -75,7 +69,7 @@ public class Vote extends AbstractBaseEntity {
     public String toString() {
         return "Vote{" +
                 "id=" + id +
-                ", date=" + date +
+                ", date=" + day +
                 ", user=" + user +
                 ", restaurant=" + restaurant +
                 '}';
