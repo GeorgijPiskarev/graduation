@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.graduation.UserTestData;
 import ru.graduation.model.Dish;
 import ru.graduation.repository.DishRepository;
 import ru.graduation.web.AbstractControllerTest;
@@ -18,6 +17,7 @@ import static ru.graduation.DishTestData.*;
 import static ru.graduation.RestaurantTestData.RESTAURANT1_ID;
 import static ru.graduation.TestUtil.readFromJson;
 import static ru.graduation.TestUtil.userHttpBasic;
+import static ru.graduation.UserTestData.admin;
 
 public class DishEditRestControllerTest extends AbstractControllerTest {
     private static final String REST_URL = DishEditRestController.REST_URL.replace("{restaurantId}", String.valueOf(RESTAURANT1_ID)) + "/";
@@ -28,7 +28,7 @@ public class DishEditRestControllerTest extends AbstractControllerTest {
     @Test
     void getAll() throws Exception {
         perform(MockMvcRequestBuilders.get(DishRestControllerTest.REST_URL)
-                .with(userHttpBasic(UserTestData.admin)))
+                .with(userHttpBasic(admin)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -38,7 +38,7 @@ public class DishEditRestControllerTest extends AbstractControllerTest {
     @Test
     void get() throws Exception {
         perform(MockMvcRequestBuilders.get(DishRestControllerTest.REST_URL + DISH1_ID)
-                .with(userHttpBasic(UserTestData.admin)))
+                .with(userHttpBasic(admin)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -48,7 +48,7 @@ public class DishEditRestControllerTest extends AbstractControllerTest {
     @Test
     void delete() throws Exception {
         perform(MockMvcRequestBuilders.delete(REST_URL + DISH1_ID)
-                .with(userHttpBasic(UserTestData.admin)))
+                .with(userHttpBasic(admin)))
                 .andExpect(status().isNoContent());
     }
 
@@ -56,7 +56,7 @@ public class DishEditRestControllerTest extends AbstractControllerTest {
     void update() throws Exception {
         Dish updated = getUpdated();
         perform(MockMvcRequestBuilders.put(REST_URL + DISH1_ID)
-                .with(userHttpBasic(UserTestData.admin))
+                .with(userHttpBasic(admin))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
@@ -68,7 +68,7 @@ public class DishEditRestControllerTest extends AbstractControllerTest {
     void createWithLocation() throws Exception {
         Dish newDish = getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
-                .with(userHttpBasic(UserTestData.admin))
+                .with(userHttpBasic(admin))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newDish)));
 

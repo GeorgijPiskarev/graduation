@@ -13,9 +13,9 @@ import java.time.LocalTime;
 import java.util.List;
 
 public abstract class AbstractVoteController {
-    public static final LocalTime END = LocalTime.of(11, 0);
+    static final LocalTime END = LocalTime.of(11, 0);
 
-    public static LocalTime NOW = LocalTime.now();
+    static LocalTime NOW = LocalTime.now();
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 

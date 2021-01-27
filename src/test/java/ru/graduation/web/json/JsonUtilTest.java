@@ -1,7 +1,6 @@
 package ru.graduation.web.json;
 
 import org.junit.jupiter.api.Test;
-import ru.graduation.DishTestData;
 import ru.graduation.model.Dish;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public class JsonUtilTest {
     void readWriteValues() throws Exception {
         String json = JsonUtil.writeValue(dishes);
         System.out.println(json);
-        List<Dish> dishes = JsonUtil.readValues(json, Dish.class);
-        DISH_MATCHER.assertMatch(dishes, DishTestData.dishes);
+        List<Dish> jDishes = JsonUtil.readValues(json, Dish.class);
+        DISH_MATCHER.assertMatch(jDishes, dishes);
     }
 }

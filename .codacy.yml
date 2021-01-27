@@ -3,4 +3,3 @@ exclude_paths:
   - 'src/main/webapp/**'
   - '**.md'
   - '**.sql'
-  - 'src/test/**'

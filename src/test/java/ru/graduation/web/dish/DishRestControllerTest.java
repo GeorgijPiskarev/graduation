@@ -3,7 +3,6 @@ package ru.graduation.web.dish;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.graduation.UserTestData;
 import ru.graduation.web.AbstractControllerTest;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -12,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static ru.graduation.DishTestData.*;
 import static ru.graduation.RestaurantTestData.RESTAURANT1_ID;
 import static ru.graduation.TestUtil.userHttpBasic;
+import static ru.graduation.UserTestData.user;
 
 public class DishRestControllerTest extends AbstractControllerTest {
 
@@ -20,7 +20,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
     @Test
     void getAll() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL)
-                .with(userHttpBasic(UserTestData.user)))
+                .with(userHttpBasic(user)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -30,7 +30,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
     @Test
     void get() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + DISH1_ID)
-                .with(userHttpBasic(UserTestData.user)))
+                .with(userHttpBasic(user)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

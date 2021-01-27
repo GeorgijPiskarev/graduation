@@ -3,7 +3,6 @@ package ru.graduation.web.vote;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.graduation.UserTestData;
 import ru.graduation.util.exception.OutOfTimeException;
 import ru.graduation.web.AbstractControllerTest;
 
@@ -14,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static ru.graduation.RestaurantTestData.RESTAURANT1_ID;
 import static ru.graduation.RestaurantTestData.RESTAURANT2_ID;
 import static ru.graduation.TestUtil.userHttpBasic;
+import static ru.graduation.UserTestData.user;
 
 public class VoteRestControllerTest extends AbstractControllerTest {
     static final String REST_URL = VoteRestController.REST_URL + '/';
@@ -21,7 +21,7 @@ public class VoteRestControllerTest extends AbstractControllerTest {
     @Test
     void vote() throws Exception {
         perform(MockMvcRequestBuilders.post(REST_URL + RESTAURANT1_ID)
-                .with(userHttpBasic(UserTestData.user)))
+                .with(userHttpBasic(user)))
                 .andExpect(status().isNoContent())
                 .andDo(print());
     }
@@ -29,14 +29,14 @@ public class VoteRestControllerTest extends AbstractControllerTest {
     @Test
     void changeVoteBeforeEnd() throws Exception {
         perform(MockMvcRequestBuilders.post(REST_URL + RESTAURANT1_ID)
-                .with(userHttpBasic(UserTestData.user)))
+                .with(userHttpBasic(user)))
                 .andExpect(status().isNoContent())
                 .andDo(print());
 
         AbstractVoteController.NOW = LocalTime.of(10, 30);
 
         perform(MockMvcRequestBuilders.post(REST_URL + RESTAURANT2_ID)
-                .with(userHttpBasic(UserTestData.user)))
+                .with(userHttpBasic(user)))
                 .andExpect(status().isNoContent())
                 .andDo(print());
     }
@@ -44,14 +44,14 @@ public class VoteRestControllerTest extends AbstractControllerTest {
     @Test
     void changeVoteAfterEnd() throws Exception {
         perform(MockMvcRequestBuilders.post(REST_URL + RESTAURANT1_ID)
-                .with(userHttpBasic(UserTestData.user)))
+                .with(userHttpBasic(user)))
                 .andExpect(status().isNoContent())
                 .andDo(print());
 
         AbstractVoteController.NOW = LocalTime.of(11, 30);
 
         Assertions.assertThatThrownBy(() -> perform(MockMvcRequestBuilders.post(REST_URL + RESTAURANT2_ID)
-                .with(userHttpBasic(UserTestData.user)))
+                .with(userHttpBasic(user)))
                 .andExpect(status().isInternalServerError()))
                 .hasCause(new OutOfTimeException("Your vote can no longer be changed"));
     }

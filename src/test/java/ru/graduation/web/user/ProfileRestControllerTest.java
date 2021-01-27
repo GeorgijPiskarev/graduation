@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.graduation.UserTestData;
 import ru.graduation.repository.UserRepository;
 import ru.graduation.web.AbstractControllerTest;
 import ru.graduation.web.json.JsonUtil;
@@ -13,8 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.graduation.TestUtil.userHttpBasic;
-import static ru.graduation.UserTestData.USER_ID;
-import static ru.graduation.UserTestData.USER_MATCHER;
+import static ru.graduation.UserTestData.*;
 import static ru.graduation.web.user.ProfileRestController.REST_URL;
 
 public class ProfileRestControllerTest extends AbstractControllerTest {
@@ -25,10 +23,10 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
     @Test
     void get() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL)
-                .with(userHttpBasic(UserTestData.user)))
+                .with(userHttpBasic(user)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(USER_MATCHER.contentJson(UserTestData.user));
+                .andExpect(USER_MATCHER.contentJson(user));
     }
 
     @Test
@@ -40,19 +38,19 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
     @Test
     void delete() throws Exception {
         perform(MockMvcRequestBuilders.delete(REST_URL)
-                .with(userHttpBasic(UserTestData.user)))
+                .with(userHttpBasic(user)))
                 .andExpect(status().isNoContent());
-        USER_MATCHER.assertMatch(userRepository.getAll(), UserTestData.admin);
+        USER_MATCHER.assertMatch(userRepository.getAll(), admin);
     }
 
     @Test
     void update() throws Exception {
         perform(MockMvcRequestBuilders.put(REST_URL).contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(UserTestData.user))
-                .content(JsonUtil.writeValue(UserTestData.getUpdated())))
+                .with(userHttpBasic(user))
+                .content(JsonUtil.writeValue(getUpdated())))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        USER_MATCHER.assertMatch(userRepository.get(USER_ID), UserTestData.getUpdated());
+        USER_MATCHER.assertMatch(userRepository.get(USER_ID), getUpdated());
     }
 }
