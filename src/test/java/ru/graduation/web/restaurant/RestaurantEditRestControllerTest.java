@@ -26,7 +26,7 @@ public class RestaurantEditRestControllerTest extends AbstractControllerTest {
 
     @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT1_ID)
+        perform(MockMvcRequestBuilders.get(RestaurantRestControllerTest.REST_URL + RESTAURANT1_ID)
                 .with(userHttpBasic(UserTestData.admin)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -36,7 +36,7 @@ public class RestaurantEditRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL)
+        perform(MockMvcRequestBuilders.get(RestaurantRestControllerTest.REST_URL)
                 .with(userHttpBasic(UserTestData.admin)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -76,13 +76,5 @@ public class RestaurantEditRestControllerTest extends AbstractControllerTest {
         newRestaurant.setId(newId);
         RESTAURANT_MATCHER.assertMatch(created, newRestaurant);
         RESTAURANT_MATCHER.assertMatch(restaurantRepository.get(newId), newRestaurant);
-    }
-
-    @Test
-    void getTodayVotes() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT1_ID + "/votes")
-                .with(userHttpBasic(UserTestData.admin))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
     }
 }

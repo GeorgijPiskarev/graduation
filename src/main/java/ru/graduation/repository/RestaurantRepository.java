@@ -33,4 +33,8 @@ public class RestaurantRepository {
     public List<Restaurant> getAll() {
         return crudRestaurantRepository.findAll(SORT_NAME);
     }
+
+    public Restaurant getWithDishes(int id) {
+        return crudRestaurantRepository.getWithDishes(id);
+    }
 }

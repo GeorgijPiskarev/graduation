@@ -15,7 +15,7 @@ import static ru.graduation.TestUtil.userHttpBasic;
 
 public class DishRestControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = DishRestController.REST_URL.replace("{restaurantId}", String.valueOf(RESTAURANT1_ID)) + "/";
+    static final String REST_URL = DishRestController.REST_URL.replace("{restaurantId}", String.valueOf(RESTAURANT1_ID)) + "/";
 
     @Test
     void getAll() throws Exception {

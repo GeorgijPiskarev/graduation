@@ -27,7 +27,7 @@ public class DishEditRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL)
+        perform(MockMvcRequestBuilders.get(DishRestControllerTest.REST_URL)
                 .with(userHttpBasic(UserTestData.admin)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -37,7 +37,7 @@ public class DishEditRestControllerTest extends AbstractControllerTest {
 
     @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + DISH1_ID)
+        perform(MockMvcRequestBuilders.get(DishRestControllerTest.REST_URL + DISH1_ID)
                 .with(userHttpBasic(UserTestData.admin)))
                 .andExpect(status().isOk())
                 .andDo(print())

@@ -8,25 +8,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.graduation.model.Dish;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = DishEditRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class DishEditRestController extends AbstractDishController {
 
     static final String REST_URL = "/rest/admin/restaurants/{restaurantId}/dishes";
-
-    @Override
-    @GetMapping
-    public List<Dish> getAll(@PathVariable int restaurantId) {
-        return super.getAll(restaurantId);
-    }
-
-    @Override
-    @GetMapping("/{id}")
-    public Dish get(@PathVariable int id, @PathVariable int restaurantId) {
-        return super.get(id, restaurantId);
-    }
 
     @Override
     @ResponseStatus(HttpStatus.NO_CONTENT)

@@ -1,8 +1,10 @@
 package ru.graduation.web.restaurant;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.graduation.model.Restaurant;
 
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.List;
 @RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantRestController extends AbstractRestaurantController {
 
-    static final String REST_URL = "/rest/profile/restaurants";
+    static final String REST_URL = "/rest/restaurants";
 
     @Override
     @GetMapping("/{id}")
@@ -25,10 +27,8 @@ public class RestaurantRestController extends AbstractRestaurantController {
         return super.getAll();
     }
 
-    @Override
-    @PostMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void vote(@PathVariable int id) {
-        super.vote(id);
+    @GetMapping("/{id}/with-dishes")
+    public Restaurant getWithDishes(@PathVariable int id) {
+        return super.getWithDishes(id);
     }
 }

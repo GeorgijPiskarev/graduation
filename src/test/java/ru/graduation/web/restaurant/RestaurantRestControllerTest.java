@@ -13,7 +13,7 @@ import static ru.graduation.RestaurantTestData.*;
 import static ru.graduation.TestUtil.userHttpBasic;
 
 public class RestaurantRestControllerTest extends AbstractControllerTest {
-    private static final String REST_URL = RestaurantRestController.REST_URL + '/';
+    static final String REST_URL = RestaurantRestController.REST_URL + '/';
 
     @Test
     void get() throws Exception {
@@ -39,13 +39,5 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(RESTAURANT_MATCHER.contentJson(restaurants));
-    }
-
-    @Test
-    void vote() throws Exception {
-        perform(MockMvcRequestBuilders.post(REST_URL + RESTAURANT1_ID)
-                .with(userHttpBasic(UserTestData.user)))
-                .andExpect(status().isNoContent())
-                .andDo(print());
     }
 }
