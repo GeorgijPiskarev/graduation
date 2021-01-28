@@ -31,8 +31,9 @@ public class ProfileRestController extends AbstractUserController {
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<User> register(@RequestBody User user) {
-        User created = super.create(user);
-        created.setRoles(Collections.singleton(Role.USER));
+        User created = new User(null, user.getName(), user.getEmail(), user.getPassword(), user.getRegistered(),
+                Collections.singleton(Role.USER));
+        super.create(created);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL).build().toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
